@@ -3,6 +3,14 @@
 // Based on https://github.com/MarianArlt/sddm-sugar-dark
 // Distributed under the GPLv3+ License https://www.gnu.org/licenses/gpl-3.0.html
 
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
+import QtQuick.Effects
+import QtMultimedia
+
+import "Components"
+
 Component.onCompleted: {
     var msg = "Loaded SDDM config: " + JSON.stringify(config, null, 2);
 
@@ -15,13 +23,8 @@ Component.onCompleted: {
     p.start("sh", ["-c", "echo '" + escaped + "' >> /var/tmp/log.txt"]);
 }
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
-import QtQuick.Effects
-import QtMultimedia
-
-import "Components"
+console.log("logging now")
+console.log("Loaded SDDM config:", JSON.stringify(config, null, 2));
 
 Pane {
     id: root
