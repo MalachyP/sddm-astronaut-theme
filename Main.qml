@@ -4,17 +4,15 @@
 // Distributed under the GPLv3+ License https://www.gnu.org/licenses/gpl-3.0.html
 
 Component.onCompleted: {
-    // Convert the config to a string
-    var msg = "Loaded SDDM config: " + JSON.stringify(config, null, 2) + "\n";
+    var msg = "Loaded SDDM config: " + JSON.stringify(config, null, 2);
 
-    // Open /var/tmp/log.txt in append mode and write
-    var file = Qt.createQmlObject('import QtQuick 2.0; QtObject {}', null);
-    var f = Qt.createQmlObject('import QtQuick 2.0; File {}', file); // dummy object for QFile
-    f = new QFile("/var/tmp/log.txt");
-    if (f.open(QIODevice.Append | QIODevice.Text)) {
-        f.write(msg);
-        f.close();
-    }
+    // Escape single quotes so the shell command works
+    var escaped = msg.replace(/'/g, "'\\''");
+
+    // Create a QProcess to append to /var/tmp/log.txt
+    var p = Qt.createQmlObject('import QtQml 2.0; QtObject {}', null);
+    p = new QProcess();
+    p.start("sh", ["-c", "echo '" + escaped + "' >> /var/tmp/log.txt"]);
 }
 
 import QtQuick 2.15
