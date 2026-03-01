@@ -4,7 +4,17 @@
 // Distributed under the GPLv3+ License https://www.gnu.org/licenses/gpl-3.0.html
 
 Component.onCompleted: {
-    console.log("Loaded SDDM config:", JSON.stringify(config, null, 2));
+    // Convert the config to a string
+    var msg = "Loaded SDDM config: " + JSON.stringify(config, null, 2) + "\n";
+
+    // Open /var/tmp/log.txt in append mode and write
+    var file = Qt.createQmlObject('import QtQuick 2.0; QtObject {}', null);
+    var f = Qt.createQmlObject('import QtQuick 2.0; File {}', file); // dummy object for QFile
+    f = new QFile("/var/tmp/log.txt");
+    if (f.open(QIODevice.Append | QIODevice.Text)) {
+        f.write(msg);
+        f.close();
+    }
 }
 
 import QtQuick 2.15
