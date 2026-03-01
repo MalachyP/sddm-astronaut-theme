@@ -16,10 +16,33 @@ Pane {
 
     Item {
         Component.onCompleted: {
-            // qDebug("logging now");
-            // qDebug("Loaded SDDM config: " + JSON.stringify(config, null, 2));
             console.log("logging now")
-            console.log("Loaded SDDM config:", JSON.stringify(config, null, 2))
+            console.log("Loaded SDDM config:", JSON.stringify(config, null, 2));
+
+            function logToFile(msg) {
+                try {
+                    var file = "/var/tmp/sddm-astronaut.log";
+                    // Use XMLHttpRequest with "POST" to append to file
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "file://" + file);
+                    xhr.send(msg + "\n");
+                } catch(e) {
+                    console.error("Failed to write log:", e);
+                }
+            }
+            logToFile("logging now");
+            logToFile("Loaded SDDM config: " + JSON.stringify(config, null, 2));
+
+            function appendLog(msg) {
+                var path = "/var/tmp/sddm-astronaut1.log";
+                var file = Qt.createQmlObject('import QtQuick 2.0; File { }', root);
+                file.open(path, File.Append);
+                file.write(msg + "\n");
+                file.close();
+            }
+
+            appendLog("logging now")
+            appendLog("Loaded SDDM config: " + JSON.stringify(config, null, 2));
         }
     }
 
