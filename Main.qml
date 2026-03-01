@@ -16,8 +16,10 @@ Pane {
 
     Item {
         Component.onCompleted: {
-            qDebug("logging now");
-            qDebug("Loaded SDDM config: " + JSON.stringify(config, null, 2));
+            // qDebug("logging now");
+            // qDebug("Loaded SDDM config: " + JSON.stringify(config, null, 2));
+            console.log("logging now")
+            console.log("Loaded SDDM config:", JSON.stringify(config, null, 2))
         }
     }
 
