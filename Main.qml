@@ -11,14 +11,6 @@ import QtMultimedia
 
 import "Components"
 
-Component.onCompleted: {
-    try {
-        qDebug("Loaded SDDM config:", JSON.stringify(config))
-    } catch(e) {
-        qDebug("Failed to stringify config:", e)
-    }
-}
-
 qDebug("logging now")
 qDebug("Loaded SDDM config:", JSON.stringify(config, null, 2));
 
