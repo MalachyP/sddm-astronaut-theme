@@ -11,11 +11,15 @@ import QtMultimedia
 
 import "Components"
 
-qDebug("logging now")
-qDebug("Loaded SDDM config:", JSON.stringify(config, null, 2));
-
 Pane {
     id: root
+
+    Item {
+        Component.onCompleted: {
+            qDebug("logging now");
+            qDebug("Loaded SDDM config: " + JSON.stringify(config, null, 2));
+        }
+    }
 
     height: config.ScreenHeight || Screen.height
     width: config.ScreenWidth || Screen.ScreenWidth
