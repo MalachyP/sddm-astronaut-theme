@@ -12,19 +12,15 @@ import QtMultimedia
 import "Components"
 
 Component.onCompleted: {
-    var msg = "Loaded SDDM config: " + JSON.stringify(config, null, 2);
-
-    // Escape single quotes so the shell command works
-    var escaped = msg.replace(/'/g, "'\\''");
-
-    // Create a QProcess to append to /var/tmp/log.txt
-    var p = Qt.createQmlObject('import QtQml 2.0; QtObject {}', null);
-    p = new QProcess();
-    p.start("sh", ["-c", "echo '" + escaped + "' >> /var/tmp/log.txt"]);
+    try {
+        qDebug("Loaded SDDM config:", JSON.stringify(config))
+    } catch(e) {
+        qDebug("Failed to stringify config:", e)
+    }
 }
 
-console.log("logging now")
-console.log("Loaded SDDM config:", JSON.stringify(config, null, 2));
+qDebug("logging now")
+qDebug("Loaded SDDM config:", JSON.stringify(config, null, 2));
 
 Pane {
     id: root
