@@ -3,6 +3,10 @@
 // Based on https://github.com/MarianArlt/sddm-sugar-dark
 // Distributed under the GPLv3+ License https://www.gnu.org/licenses/gpl-3.0.html
 
+Component.onCompleted: {
+    console.log("Loaded SDDM config:", JSON.stringify(config, null, 2));
+}
+
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
